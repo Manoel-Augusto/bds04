@@ -20,10 +20,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Autowired
 	private Environment env;
-	
-	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**" };
-	private static final String[] CLIENT_OR_ADMIN = { "/cities/**","/events/**" };
-	private static final String[] ADMIN = { "/users/**"};
+	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**"};
+	private static final String[] CLIENT_OR_ADMIN = {"/events/**"};
+	private static final String[] ADMIN = { "/users/**", "/cities/**"};
+
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -40,7 +40,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
 		.antMatchers(HttpMethod.GET, CLIENT_OR_ADMIN).permitAll()
-		.antMatchers(CLIENT_OR_ADMIN).hasAnyRole("ADMIN", "CLIENT")
+		.antMatchers(CLIENT_OR_ADMIN).hasAnyRole("CLIENT", "ADMIN")
 		.antMatchers(ADMIN).hasRole("ADMIN")
 		.anyRequest().authenticated();
 	}

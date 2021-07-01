@@ -16,14 +16,14 @@ import com.devsuperior.bds04.repositories.CityRepository;
 public class CityService {
 	@Autowired
 	private CityRepository repository;
-
+	@Transactional(readOnly=true)
 	public List<CityDTO> findAll() {
 		List<City> list = repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 		List<CityDTO> listDto = list.stream().map(x -> new CityDTO(x)).collect(Collectors.toList());
 		return listDto;
 	}
 	
-	@Transactional(readOnly=true)
+
 	public CityDTO insert(CityDTO dto) {
 		City entity = new City();
 		entity.setName(dto.getName());

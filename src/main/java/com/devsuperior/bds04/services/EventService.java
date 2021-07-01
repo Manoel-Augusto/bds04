@@ -21,7 +21,7 @@ public class EventService {
 		Page<Event> list = repository.findAll(pageable);
 		return list.map(x -> new EventDTO(x));
 	}
-	@Transactional(readOnly=true)
+	
 	public EventDTO insert(EventDTO dto) {
 		Event entity = new Event();
 		City city = new City();
