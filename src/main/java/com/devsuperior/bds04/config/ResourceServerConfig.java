@@ -21,7 +21,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Autowired
 	private Environment env;
 	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**"};
-	private static final String[] CLIENT_OR_ADMIN = {"/events/**"};
+	private static final String[] CLIENT_OR_ADMIN = {"/events/**","/cities/**"};
 	private static final String[] ADMIN = { "/users/**", "/cities/**"};
 
 
@@ -35,7 +35,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		//H2
 		if(Arrays.asList(env.getActiveProfiles()).contains("test")){
 			http.headers().frameOptions().disable();
-		}
 		
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
@@ -44,5 +43,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		.antMatchers(ADMIN).hasRole("ADMIN")
 		.anyRequest().authenticated();
 	}
-
+	}
 }
